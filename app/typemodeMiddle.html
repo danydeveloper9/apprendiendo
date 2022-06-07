@@ -3,7 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width">
   <meta charset="UTF-8">
-  <title>Compare pixels</title>
+  <title>Nivel Intermedio</title>
 
   <!-- Bootstrap CSS CDN -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -53,7 +53,7 @@ var letterpixels = null;
 function setupCanvas() {
   c.height = 480;
   c.width = 320;
-  cx.lineWidth = 30;
+  cx.lineWidth = 35;
   cx.lineCap = 'round';
   cx.strokeStyle = 'rgb(0, 0, 50)';
   cx.font = 'bold 300px helvetica';
@@ -73,6 +73,7 @@ function drawletter(letter) {
 function showerror(error) {
   mousedown = false;
   alert(error);
+  setupCanvas();
 };
 
 function paint(x, y) {
@@ -117,7 +118,7 @@ function getpixelamount(r, g, b) {
 };
 
 function pixelthreshold() {
-  if (getpixelamount(0, 0, 50) / letterpixels > 0.35) {
+  if (getpixelamount(0, 0, 50) / letterpixels > 0.70) {
     respuestaCorrecta();
   }
 };
@@ -152,7 +153,11 @@ function respuestaCorrecta () {
 	}).then((result) => {
 		if(result.isConfirmed){
       cx.clearRect(0, 0, c.width, c.height);
-      noQuiz++;
+      if(noQuiz > 50){
+        noQuiz = 0;
+      } else{
+        noQuiz++;
+      }
       oldx = null;
       oldy = null;
       setupCanvas();
